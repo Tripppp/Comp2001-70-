@@ -1,0 +1,35 @@
+CREATE TABLE CW2.Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    UserName VARCHAR(100) NOT NULL,
+    UserEmail VARCHAR(100) NOT NULL UNIQUE,
+    Role VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE CW2.Trails (
+    TrailID INT PRIMARY KEY IDENTITY(1,1),
+    TrailName VARCHAR(150) NOT NULL,
+    Description TEXT,
+    OwnerID INT NOT NULL,
+    DateCreated DATETIME DEFAULT GETDATE(),
+    Difficulty VARCHAR(50) NOT NULL,
+    Distance VARCHAR(50) NOT NULL,
+    EstimatedTime VARCHAR(50) NOT NULL,
+    FOREIGN KEY (OwnerID) REFERENCES CW2.Users(UserID)
+);
+
+CREATE TABLE CW2.Locations (
+    PlotID INT PRIMARY KEY IDENTITY(1,1),
+    TrailID INT NOT NULL,
+    Latitude DECIMAL(9,6) NOT NULL,
+    Longitude DECIMAL(9,6) NOT NULL,
+    FOREIGN KEY (TrailID) REFERENCES CW2.Trails(TrailID)
+);
+
+CREATE TABLE CW2.LocationDetails (
+    LocationID INT PRIMARY KEY IDENTITY(1,1),
+    PlotID INT NOT NULL,
+    City VARCHAR(100) NOT NULL,
+    County VARCHAR(100) NOT NULL,
+    Country VARCHAR(100) NOT NULL,
+    FOREIGN KEY (PlotID) REFERENCES CW2.Locations(PlotID)
+);

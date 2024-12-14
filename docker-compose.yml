@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  sql-server-db:
+    build: ./db
+    container_name: sql-server-db
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrongPassword123!"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  python-api:
+    build: ./app
+    container_name: python-api
+    ports:
+      - "5001:5000"
+    depends_on:
+      - sql-server-db
+
+volumes:
+  sql_data:

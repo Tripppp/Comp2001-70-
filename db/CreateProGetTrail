@@ -1,0 +1,9 @@
+CREATE PROCEDURE CW2.GetTrail
+    @TrailID INT = NULL
+AS
+BEGIN
+    IF @TrailID IS NULL
+        SELECT * FROM CW2.Trails;
+    ELSE
+        SELECT * FROM CW2.Trails WHERE TrailID = @TrailID;
+END;
