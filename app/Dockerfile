@@ -2,14 +2,14 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Install dependencies for pyodbc and ODBC Driver 18 for SQL Server
+
 RUN apt-get update && apt-get install -y \
     unixodbc-dev \
     curl \
     apt-transport-https \
     gnupg
 
-# Add Microsoft repository and install msodbcsql18
+    
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update \
